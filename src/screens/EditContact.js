@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import { TEXT, THEME } from "../constant/Color";
+import { ICON, TEXT, THEME } from "../constant/Color";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContactDetail, updateContact } from "../redux/actions/actions";
 import Loader from "../components/Loader";
 import { useNavigation } from "@react-navigation/native";
 import ModalUpdate from "../components/ModalUpdate";
 import * as ImagePicker from "expo-image-picker";
+import { validPhotoUrl } from "../utils/validImage";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const EditContact = ({ route }) => {
   const navigation = useNavigation();
@@ -85,17 +87,30 @@ const EditContact = ({ route }) => {
     setErrorField(errorField);
     return valid;
   };
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={pickImageAsync}>
-        {photo ? (
-          <Image source={{ uri: photo }} style={styles.image} />
-        ) : (
-          <View style={styles.placeholder}>
-            <Text>Select an Image</Text>
-          </View>
-        )}
+      <TouchableOpacity style={{}}>
+        <View style={styles.placeholder}>
+          <Image
+            source={{ uri: photo }}
+            style={{ width: 100, height: 100, borderRadius: 50 }}
+          />
+          <MaterialCommunityIcons
+            name="pencil-outline"
+            size={30}
+            color={ICON.light}
+            style={{
+              position: "absolute",
+              bottom: "2%",
+              right: "5%",
+              backgroundColor: THEME.primary,
+              borderRadius: 5,
+              paddingVertical: 2,
+              paddingHorizontal: 4,
+            }}
+            onPress={pickImageAsync}
+          />
+        </View>
       </TouchableOpacity>
       <Text style={{ fontSize: 18, marginVertical: 6 }}>First name : </Text>
       <TextInput

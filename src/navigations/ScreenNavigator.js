@@ -17,7 +17,7 @@ import ModalDelete from "../components/ModalDelete";
 
 const Stack = createStackNavigator();
 
-function StackNavigator() {
+export default function StackNavigator() {
   const [visibleDelete, setVisibleDelete] = React.useState(false);
 
   return (
@@ -115,5 +115,3 @@ function StackNavigator() {
     </Stack.Navigator>
   );
 }
-
-export default StackNavigator;

@@ -26,6 +26,7 @@ const Detail = ({ route, navigation }) => {
   if (error) {
     return <Text>Error: {error}</Text>;
   }
+
   return (
     <View style={{ flex: 1 }}>
       {/* PROFILE */}
@@ -36,7 +37,7 @@ const Detail = ({ route, navigation }) => {
           alignItems: "center",
         }}
       >
-        <View style={{}}>
+        <View style={{ backgroundColor: "#e1e1e1", borderRadius: 50 }}>
           <Image
             source={{ uri: contact.photo }}
             style={{ width: 100, height: 100, borderRadius: 50 }}
@@ -47,12 +48,29 @@ const Detail = ({ route, navigation }) => {
             marginVertical: 10,
           }}
         >
-          <Text
-            style={{ fontWeight: "bold", fontSize: 27, textAlign: "center" }}
-          >
-            {contact.firstName}
-            {contact.lastName}
-          </Text>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 27,
+                textAlign: "center",
+                marginHorizontal: 2,
+              }}
+            >
+              {contact.firstName}
+            </Text>
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 27,
+                textAlign: "center",
+                marginHorizontal: 2,
+              }}
+            >
+              {contact.lastName}
+            </Text>
+          </View>
+
           <Text style={{ fontWeight: "bold", color: "grey", fontSize: 17 }}>
             (49873)48975834758
           </Text>

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { validPhotoUrl } from "../utils/validImage";
 
 const ContactList = ({ contacts }) => {
@@ -16,7 +16,7 @@ const ContactList = ({ contacts }) => {
   return (
     <View style={styles.list}>
       {contacts.map((contact, id) => (
-        <TouchableOpacity
+        <TouchableWithoutFeedback
           key={id}
           style={styles.contactItem}
           onPress={() => handleContactPress(contact.id)}
@@ -35,7 +35,7 @@ const ContactList = ({ contacts }) => {
             </Text>
             <Text style={styles.contactAge}>Age: {contact.age}</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
       ))}
     </View>
   );

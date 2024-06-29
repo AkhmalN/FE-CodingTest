@@ -8,11 +8,12 @@ import {
   Alert,
   StyleSheet,
 } from "react-native";
-import { TEXT, THEME } from "../constant/Color";
+import { ICON, TEXT, THEME } from "../constant/Color";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch } from "react-redux";
 import { createContact } from "../redux/actions/actions";
+import ModalAdd from "../components/ModalAdd";
 
 const Adding = ({ route, navigation }) => {
   const [firstName, setFirstName] = useState("");
@@ -20,6 +21,7 @@ const Adding = ({ route, navigation }) => {
   const [age, setAge] = useState("");
   const [selectedImg, setSelectedImg] = useState(null);
   const [errorField, setErrorField] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   let dispatch = useDispatch();
 
@@ -78,27 +80,35 @@ const Adding = ({ route, navigation }) => {
         setLastName("");
         setAge("");
         setSelectedImg(null);
+        setModalVisible(false);
       } else {
         Alert.alert("Error", "Failed to add contact");
       }
     }
   };
-
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={pickImageAsync}>
-        {selectedImg ? (
-          <Image source={{ uri: selectedImg }} style={styles.image} />
-        ) : (
-          <View style={styles.placeholder}>
-            <MaterialCommunityIcons
-              name="pencil-outline"
-              size={30}
-              color="black"
-            />
-          </View>
-        )}
-      </TouchableOpacity>
+      <View style={styles.placeholder}>
+        <Image
+          source={{ uri: selectedImg }}
+          style={{ width: 100, height: 100, borderRadius: 50 }}
+        />
+        <MaterialCommunityIcons
+          name="pencil-outline"
+          size={30}
+          color={ICON.light}
+          style={{
+            position: "absolute",
+            bottom: "2%",
+            right: "5%",
+            backgroundColor: THEME.primary,
+            borderRadius: 5,
+            paddingVertical: 2,
+            paddingHorizontal: 4,
+          }}
+          onPress={pickImageAsync}
+        />
+      </View>
       <TextInput
         style={styles.input}
         placeholder="First Name"
@@ -126,7 +136,7 @@ const Adding = ({ route, navigation }) => {
       />
       {errorField.age && <Text style={styles.error}>{errorField.age}</Text>}
       <TouchableOpacity
-        onPress={handleSubmit}
+        onPress={() => setModalVisible(true)}
         style={{
           backgroundColor: THEME.primary,
           width: "100%",
@@ -140,6 +150,11 @@ const Adding = ({ route, navigation }) => {
       >
         <Text style={{ fontSize: 20, color: TEXT.light }}>Save</Text>
       </TouchableOpacity>
+      <ModalAdd
+        visible={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        handleSubmit={handleSubmit}
+      />
     </View>
   );
 };
