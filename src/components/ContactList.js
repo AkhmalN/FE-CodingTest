@@ -15,9 +15,9 @@ const ContactList = ({ contacts }) => {
 
   return (
     <View style={styles.list}>
-      {contacts.map((contact) => (
+      {contacts.map((contact, id) => (
         <TouchableOpacity
-          key={contact.id}
+          key={id}
           style={styles.contactItem}
           onPress={() => handleContactPress(contact.id)}
         >

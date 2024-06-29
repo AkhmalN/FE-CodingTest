@@ -46,6 +46,8 @@ export const createContact =
         photo,
       });
       dispatch({ type: types.ADD_CONTACT_SUCCESS, payload: response.data });
+      dispatch(fetchContacts());
+
       return response.status;
     } catch (error) {
       return error;
@@ -74,10 +76,9 @@ export const updateContact =
 export const deleteContact = (id) => async (dispatch) => {
   dispatch({ type: types.DELETE_CONTACT_REQUEST });
   try {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    await axios.delete(`${API_URL}/${id}`);
     dispatch({
       type: types.DELETE_CONTACT_SUCCESS,
-      payload: response.status,
     });
   } catch (error) {
     console.error(error.message);

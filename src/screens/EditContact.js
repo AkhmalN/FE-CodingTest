@@ -13,6 +13,7 @@ import { fetchContactDetail, updateContact } from "../redux/actions/actions";
 import Loader from "../components/Loader";
 import { useNavigation } from "@react-navigation/native";
 import ModalUpdate from "../components/ModalUpdate";
+import * as ImagePicker from "expo-image-picker";
 
 const EditContact = ({ route }) => {
   const navigation = useNavigation();
@@ -27,6 +28,18 @@ const EditContact = ({ route }) => {
   let dispatch = useDispatch();
   const { contact, loading, error } = useSelector((state) => state.contacts);
 
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setPhoto(result.assets[0].uri);
+    } else {
+      alert("You did not select any image.");
+    }
+  };
   useEffect(() => {
     dispatch(fetchContactDetail(contact_id));
   }, [dispatch, contact_id]);
@@ -75,7 +88,7 @@ const EditContact = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={pickImageAsync}>
         {photo ? (
           <Image source={{ uri: photo }} style={styles.image} />
         ) : (

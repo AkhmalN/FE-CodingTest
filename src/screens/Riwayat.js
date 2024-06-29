@@ -1,6 +1,6 @@
 import CallContact from "../components/CallContact";
 import React, { useEffect } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchContacts } from "../redux/actions/actions";

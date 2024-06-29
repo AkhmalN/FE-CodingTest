@@ -108,7 +108,7 @@ function TabNavigator() {
                 <ICONS.FontAwesome
                   name="user-circle"
                   color={THEME.primary}
-                  size={40}
+                  size={37}
                   onPress={() => {
                     navigation.navigate("Profil");
                   }}
